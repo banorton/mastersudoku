@@ -1,0 +1,60 @@
+:root {
+    --cell-size: 80px; /* Default size of each cell */
+    --cell-gap: 2px;   /* Gap between cells */
+  }
+  
+  .sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, var(--cell-size)); /* Create a grid with 9 columns of variable width */
+    gap: var(--cell-gap); /* Space between cells */
+    margin: 20px auto; /* Center the grid on the page */
+    max-width: calc(9 * var(--cell-size) + 8 * var(--cell-gap)); /* Adjust max-width based on cell size and gap */
+    background-color: #444c56; /* Dark background for the grid */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .sudoku-row {
+    display: contents; /* Use the parent grid layout */
+  }
+  
+  .sudoku-cell {
+    width: 100%; /* Full width of the grid cell */
+    height: var(--cell-size); /* Height of each cell */
+    text-align: center; /* Center text inside the cell */
+    font-size: calc(var(--cell-size) * 0.45); /* Font size relative to cell size */
+    border: 1px solid #ccc; /* Light grey border for each cell */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    background-color: #586069; /* Bluish-grey background for cells */
+    color: #ffffff; /* White text color */
+    border-radius: 4px; /* Rounded corners for cells */
+  }
+  
+  .sudoku-cell:focus {
+    outline: none; /* Remove default outline on focus */
+    border-color: #007bff; /* Blue border on focus */
+    background-color: #445a6f; /* Slightly darker bluish-grey background on focus */
+  }
+  
+  .sudoku-cell::placeholder {
+    color: #bbb; /* Light grey color for placeholder text */
+  }
+  
+  /* Add thicker borders to differentiate 3x3 sections */
+  .sudoku-grid .sudoku-cell:nth-child(3n+1) {
+    border-left: 2px solid #000; /* Thicker border for the left edge of each 3x3 section */
+  }
+  
+  .sudoku-grid .sudoku-row:nth-child(3n+1) .sudoku-cell {
+    border-top: 2px solid #000; /* Thicker border for the top edge of each 3x3 section */
+  }
+  
+  .sudoku-grid .sudoku-cell:nth-child(9n) {
+    border-right: 2px solid #000; /* Thicker border for the right edge of the grid */
+  }
+  
+  .sudoku-grid .sudoku-row:nth-child(9) .sudoku-cell {
+    border-bottom: 2px solid #000; /* Thicker border for the bottom edge of the grid */
+  }
+  
