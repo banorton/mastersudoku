@@ -1,110 +1,131 @@
 :root {
-  --cell-size: 80px; /* Default size of each cell */
-  --cell-gap: 2px;   /* Gap between cells */
+  --cell-size: 80px;
+  --cell-gap: 2px;
 }
 
 .container {
   display: flex;
-  flex-direction: row; /* Arrange children in a row */
-  justify-content: center; /* Center the container horizontally */
-  align-items: center; /* Align items vertically */
-  margin-top: 20px; /* Add some top margin */
-  outline: none; /* Remove outline when focused */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  outline: none;
+}
+
+.grid-and-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .grid-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the grid horizontally */
-  margin-right: 20px; /* Add some space between the grid and the button */
+  align-items: center;
+  margin-right: 20px;
 }
 
 .button-container {
   display: flex;
-  align-items: center; /* Center button vertically */
-  height: calc(9 * var(--cell-size) + 8 * var(--cell-gap) + 20px); /* Match the grid height */
+  flex-direction: column;
+  align-items: center;
+  height: calc(9 * var(--cell-size) + 8 * var(--cell-gap) + 20px);
+  justify-content: center;
 }
 
 .sudoku-grid {
   display: grid;
-  grid-template-columns: repeat(9, var(--cell-size)); /* Create a grid with 9 columns of variable width */
-  gap: var(--cell-gap); /* Space between cells */
-  margin: 20px auto; /* Center the grid on the page */
-  max-width: calc(9 * var(--cell-size) + 8 * var(--cell-gap)); /* Adjust max-width based on cell size and gap */
-  background-color: #444c56; /* Dark background for the grid */
+  grid-template-columns: repeat(9, var(--cell-size));
+  gap: var(--cell-gap);
+  margin: 20px auto;
+  max-width: calc(9 * var(--cell-size) + 8 * var(--cell-gap));
+  background-color: #444c56;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .sudoku-row {
-  display: contents; /* Use the parent grid layout */
+  display: contents;
 }
 
 .sudoku-cell {
-  width: 100%; /* Full width of the grid cell */
-  height: var(--cell-size); /* Height of each cell */
-  text-align: center; /* Center text inside the cell */
-  font-size: calc(var(--cell-size) * 0.55); /* Font size relative to cell size */
-  border: 1px solid #ccc; /* Light grey border for each cell */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-  background-color: #e0e3ff; /* White background for cells */
-  color: #000000; /* Black text color */
-  border-radius: 0px; /* Rounded corners for cells */
-  caret-color: transparent; /* Hide the blinking cursor */
+  width: 100%;
+  height: var(--cell-size);
+  text-align: center;
+  font-size: calc(var(--cell-size) * 0.55);
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: #e0e3ff;
+  color: #000000;
+  border-radius: 0px;
+  caret-color: transparent;
 }
 
 .sudoku-cell:focus {
-  outline: none; /* Remove default outline on focus */
-  border-color: #000000; /* Black border on focus */
-  background-color: #c9c9c9; /* Slightly darker background on focus */
+  outline: none;
+  background-color: #c9c9c9;
 }
 
 .sudoku-cell::placeholder {
-  color: #ffffff; /* Light grey color for placeholder text */
+  color: #ffffff;
 }
 
-/* Add thicker borders to differentiate 3x3 sections */
 .sudoku-grid .sudoku-cell:nth-child(3n+1) {
-  border-left: 5px solid #000; /* Thicker border for the left edge of each 3x3 section */
+  border-left: 5px solid #000;
 }
 
 .sudoku-grid .sudoku-row:nth-child(3n+1) .sudoku-cell {
-  border-top: 5px solid #000; /* Thicker border for the top edge of each 3x3 section */
+  border-top: 5px solid #000;
 }
 
 .sudoku-grid .sudoku-cell:nth-child(9n) {
-  border-right: 5px solid #000; /* Thicker border for the right edge of the grid */
+  border-right: 5px solid #000;
 }
 
 .sudoku-grid .sudoku-row:nth-child(9) .sudoku-cell {
-  border-bottom: 5px solid #000; /* Thicker border for the bottom edge of the grid */
+  border-bottom: 5px solid #000;
 }
 
 .custom-button {
-  background-color: #5f62ff; /* Light blue background color */
-  border: none; /* Remove default border */
-  color: white; /* White text color */
-  padding: 10px 20px; /* Padding for the button */
-  text-align: center; /* Center the text */
-  text-decoration: none; /* Remove default text decoration */
-  display: inline-block; /* Inline-block display */
-  font-size: 16px; /* Font size */
-  margin: 10px 2px; /* Margin around the button */
-  cursor: pointer; /* Pointer cursor on hover */
-  border-radius: 5px; /* Rounded corners */
-  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+  background-color: #5f62ff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.05s, transform 0.1s;
+  margin-top: 10px;
+  margin-left: 20px;
 }
 
 .custom-button:hover {
-  transform: scale(1.05); /* Slightly enlarge on hover */
+  transform: scale(1.05);
 }
 
 .custom-button:active {
-  background-color: #3e44b3; /* Even darker blue on click */
-  transform: scale(1); /* Reset size on click */
+  background-color: #3e44b3;
+  transform: scale(1);
 }
 
 .custom-button:focus {
-  outline: none; /* Remove outline */
+  outline: none;
+}
+
+.input-container {
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.input-field {
+  width: 80%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
