@@ -9,6 +9,8 @@ const Sudoku = () => {
     const [solvedGrid, setSolvedGrid] = useState(null);
     const [inputValue, setInputValue] = useState('');
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     const handleInputChange = (row, col, value) => {
         if (/^[1-9]?$/.test(value)) {
             const newGrid = grid.map((rowArray, rowIndex) => 
@@ -21,7 +23,7 @@ const Sudoku = () => {
     };
 
     const handleSolve = () => {
-        axios.post('http://localhost:8000/api/solve/', { grid })
+        axios.post(`${apiUrl}/solve/`, { grid })
             .then(response => {
                 const solved = response.data.solved;
                 if (solved) {
@@ -65,10 +67,10 @@ const Sudoku = () => {
     };
 
     return (
-        <div className="container" onKeyDown={handleKeyDown} tabIndex="0">
-            <div className="grid-and-buttons">
-                <div className="grid-container">
-                    <div className="sudoku-grid">
+        <div class="outer-container">
+            <div class="square-grid">
+                <div class="grid-item grid-container">
+                    <div class="sudoku-grid">
                         {(solvedGrid || grid).map((row, rowIndex) => (
                             <div key={rowIndex} className="sudoku-row">
                                 {row.map((value, colIndex) => (
@@ -86,19 +88,20 @@ const Sudoku = () => {
                         ))}
                     </div>
                 </div>
-                <div className="button-container">
+                <div class="grid-item button-container">
                     <button className="custom-button" onClick={handleSolve}>Solve</button>
                     <button className="custom-button" onClick={clearGrid}>Clear</button>
                 </div>
-            </div>
-            <div className="input-container">
-                <input
-                    type="text"
-                    value={inputValue}
-                    onChange={handleInputFieldChange}
-                    placeholder="Enter numbers separated by spaces or commas"
-                    className="input-field"
-                />
+                <div class="grid-item input-container">
+                    <input
+                        type="text"
+                        value={inputValue}
+                        onChange={handleInputFieldChange}
+                        placeholder="Enter numbers separated by spaces or commas"
+                        className="input-field"
+                    />
+                </div>
+                <div class="grid-item"></div>
             </div>
         </div>
     );
