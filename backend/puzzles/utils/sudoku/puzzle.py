@@ -236,8 +236,8 @@ class Puzzle:
         self.unsolved -= 1
         valid, reason = is_valid(self)
         if not valid:
-            print(f"\nError: " + reason)
-            print(self.np, end="\n\n")
+            # print(f"\nError: " + reason)
+            # print(self.np, end="\n\n")
             raise Exception(reason)
         r, c = cell.pos
         self.del_notes(vals=new_val, rows=r, cols=c, boxs=cell.box, save=cell.pos)

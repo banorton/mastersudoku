@@ -1,7 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .utils.sudoku import Puzzle
-import ipdb
 
 @api_view(['POST'])
 def solve_puzzle(request):
@@ -25,7 +24,6 @@ def solve_puzzle(request):
         
         solved_grid = p.to_list()
         if solved_grid:
-            ipdb.set_trace()
             return Response({'solved': 1, 'solved_grid': solved_grid})
             
     return Response({'error': 'Invalid data'}, status=400)

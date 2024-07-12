@@ -72,7 +72,7 @@ def std_solve(p):
             continue
         else:
             diffs = header + diffs + footer
-            print(diffs)
+            # print(diffs)
 
         # Check if the puzzle is solved.
         if not p.unsolved:
@@ -102,9 +102,9 @@ def nishio(p, n=2):
             vals = list(cell.notes)
             puzzle_snapshot = dcopy(p)
             try:
-                print(
-                    "######################## NISHIO - BRANCH 1 ###########################"
-                )
+                # print(
+                #     "######################## NISHIO - BRANCH 1 ###########################"
+                # )
                 p[cell.pos] = vals[0]
                 solved = std_solve(p)
                 if solved:
@@ -112,9 +112,9 @@ def nishio(p, n=2):
                 else:
                     nishio(p)
             except:
-                print(
-                    "######################## NISHIO - BRANCH 2 ##########################"
-                )
+                # print(
+                #     "######################## NISHIO - BRANCH 2 ##########################"
+                # )
                 p.copy(puzzle_snapshot)
                 p[cell.pos] = vals[1]
                 solved = std_solve(p)
@@ -264,8 +264,6 @@ def find_hidden_clues(p, n):
                 posns[value].append(key)
                 if value in posns and len(posns[value]) == n:
                     if not (value in p.checked[n]):
-                        if bnum == 1 and n == 2:
-                            print()
                         p.checked[n][value].append(key)
                         p.del_notes(vals=posns[value], boxs=[bnum], save=value)
                         diffs1 += f"del notes: box {bnum}, vals {posns[value]}, save {value}\n"
