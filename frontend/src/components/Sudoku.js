@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Sudoku.css';
 
@@ -11,10 +11,25 @@ const Sudoku = () => {
 
     const apiUrl = process.env.REACT_APP_API_URL;
 
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            const { row, col } = focusedCell;
+            if (row !== -1 && col !== -1 && /^[1-9]$/.test(e.key)) {
+                handleInputChange(row, col, e.key);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [focusedCell, grid]);
+
     const handleInputChange = (row, col, value) => {
         if (/^[1-9]?$/.test(value)) {
-            const newGrid = grid.map((rowArray, rowIndex) => 
-                rowArray.map((cellValue, colIndex) => 
+            const newGrid = grid.map((rowArray, rowIndex) =>
+                rowArray.map((cellValue, colIndex) =>
                     (rowIndex === row && colIndex === col ? value : cellValue)
                 )
             );
@@ -47,13 +62,6 @@ const Sudoku = () => {
         setFocusedCell({ row, col });
     };
 
-    const handleKeyDown = (e) => {
-        const { row, col } = focusedCell;
-        if (row !== -1 && col !== -1 && /^[1-9]$/.test(e.key)) {
-            handleInputChange(row, col, e.key);
-        }
-    };
-
     const handleInputFieldChange = (e) => {
         setInputValue(e.target.value);
         const values = e.target.value.split(/[ ,]+/).map(Number);
@@ -67,10 +75,10 @@ const Sudoku = () => {
     };
 
     return (
-        <div class="outer-container">
-            <div class="square-grid">
-                <div class="grid-item grid-container">
-                    <div class="sudoku-grid">
+        <div className="outer-container">
+            <div className="square-grid">
+                <div className="grid-item grid-container">
+                    <div className="sudoku-grid">
                         {(solvedGrid || grid).map((row, rowIndex) => (
                             <div key={rowIndex} className="sudoku-row">
                                 {row.map((value, colIndex) => (
@@ -88,11 +96,11 @@ const Sudoku = () => {
                         ))}
                     </div>
                 </div>
-                <div class="grid-item button-container">
+                <div className="grid-item button-container">
                     <button className="custom-button" onClick={handleSolve}>Solve</button>
                     <button className="custom-button" onClick={clearGrid}>Clear</button>
                 </div>
-                <div class="grid-item input-container">
+                <div className="grid-item input-container">
                     <input
                         type="text"
                         value={inputValue}
@@ -101,7 +109,7 @@ const Sudoku = () => {
                         className="input-field"
                     />
                 </div>
-                <div class="grid-item"></div>
+                <div className="grid-item"></div>
             </div>
         </div>
     );
