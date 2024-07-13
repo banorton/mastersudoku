@@ -65,11 +65,15 @@ const Sudoku = () => {
     const handleInputFieldChange = (e) => {
         setInputValue(e.target.value);
         const values = e.target.value.split(/[ ,]+/).map(Number);
-        if (values.length === 81) {
-            const newGrid = [];
-            for (let i = 0; i < 9; i++) {
-                newGrid.push(values.slice(i * 9, (i + 1) * 9));
-            }
+        if (values.length <= 81) {
+            const newGrid = initialGrid.map(row => row.slice()); // Create a copy of the initial grid
+            values.forEach((value, index) => {
+                if (index < 81) {
+                    const row = Math.floor(index / 9);
+                    const col = index % 9;
+                    newGrid[row][col] = value === 0 ? '' : value.toString();
+                }
+            });
             setGrid(newGrid);
         }
     };
