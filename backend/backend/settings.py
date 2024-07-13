@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n@0fj)$@)3%c6xq0*i%@p!m6qv_chz!a2q6!8dsr-ccvl815)!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['mastersudoku.com', 'www.mastersudoku.com', 'localhost', '127.0.0.1']
 
