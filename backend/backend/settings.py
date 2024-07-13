@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-n@0fj)$@)3%c6xq0*i%@p!m6qv_chz!a2q6!8dsr-ccvl815)!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['18.216.65.170', 'localhost']
-
+ALLOWED_HOSTS = ['mastersudoku.com', 'www.mastersudoku.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -55,6 +54,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    "https://mastersudoku.com",
+    "https://www.mastersudoku.com",
     'http://localhost:3000',
     'http://18.216.65.170',
 ]
