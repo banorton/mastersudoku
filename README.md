@@ -18,11 +18,9 @@ If the standard algorithms reach a dead end, the **nishio method** is used. This
 
 The primary solving functions are:
 - **find_naked_clues**: Eliminates candidate notes from cells when a set of cells in a row, column, or box share exactly the same n values. 
-
   **Example:**
   - In row 3, if cells (3,3) and (3,7) both contain only the notes {4,8}, notes 4 and 8 are removed from the remaining cells in row 3. If cell (3,0) had {1,3,4,7,8}, it would be reduced to {1,3,7}.
 
 - **find_hidden_clues**: Removes non-shared notes from cells when exactly n cells in a row, column, or box contain more than n notes but share the same n values.
-
   **Example:**
   - In row 3, if cells (3,3) and (3,7) contain {1,3,4,6,8} and {2,4,7,8}, respectively, the shared notes {4,8} will be removed from all other cells in row 3, and only {4,8} will remain in those two cells.
