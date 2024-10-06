@@ -1,23 +1,17 @@
 # Sudoku Solver
 This Python package solves valid Sudoku puzzles (i.e., no duplicate values in any row, column, or box). The project has a Django Rest Framework backend and a React frontend, hosted at www.mastersudoku.com on an EC2 server.
 
-## System Overview
+## Algorithm Overview
 The project is organized into the following components:
 
 - **puzzle.py**: Defines the core objects for the Sudoku puzzle:
   - **Cell**: Represents an individual cell with its value and possible notes.
   - **Puzzle_Backend**: Manages the puzzle's state and interactions with the solver.
   - **Puzzle**: Connects the front and back end, enabling puzzle solving and display.
-
 - **solver.py**: Contains the algorithms used to solve puzzles, including logic similar to human strategies. More details on the solving algorithms are provided in the next section.
-
-- **gui/**: Manages the graphical user interface (GUI) using **tkinter**. 
-  - **gui.py**: Defines the layout, with a puzzle frame on the right for displaying cells, and an info frame on the left with controls for solving and clearing the puzzle.
-
 - **examples/**: Contains example Sudoku puzzles of varying difficulty levels, from easy to impossible.
 
 ## Solving Algorithms
-
 The algorithms in **solver.py** are designed to solve puzzles similarly to a human, starting with simple clues (like naked and hidden singles) and advancing to more complex techniques (e.g., naked and hidden pairs, triples, quadruples). This structure allows for future implementations of a guided solving mode.
 
 If the standard algorithms reach a dead end, the **nishio method** is used. This is a guess-and-check approach that explores potential values for cells with limited options (typically naked or hidden doubles). If a contradiction arises, the guess is revised. This method is recursive, meaning it can be applied repeatedly when further progress is stalled. However, it is treated as a last resort due to the increased complexity and potential for numerous branching points.
