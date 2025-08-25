@@ -13,13 +13,13 @@ A Sudoku solver web application that uses human-like solving algorithms to solve
 
 ## Technology Stack
 
-### Backend
+### API
 - **Django 5.0.6** - Web framework
 - **Django REST Framework** - API development
 - **Python** - Core logic and algorithms
 - **SQLite** - Database (development)
 
-### Frontend  
+### Client  
 - **React 18** - User interface
 - **Axios** - HTTP client for API communication
 - **CSS3** - Styling and responsive design
@@ -40,14 +40,14 @@ git clone <repository-url>
 cd mastersudoku
 ```
 
-#### 2. Backend Setup (Django)
+#### 2. API Setup (Django)
 ```bash
-# Navigate to backend directory
-cd backend
+# Navigate to api directory
+cd api
 
 # Create and activate virtual environment
 python -m venv sudoku-env
-source sudoku-env/bin/activate  # On Windows: sudoku-env\Scripts\activate
+source sudoku-env/bin/activate
 
 # Install Python dependencies
 pip install -r requirements.txt
@@ -59,12 +59,12 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-The backend API will be available at `http://localhost:8000`
+The API will be available at `http://localhost:8000`
 
-#### 3. Frontend Setup (React)
+#### 3. Client Setup (React)
 ```bash
-# Navigate to frontend directory (in new terminal)
-cd frontend
+# Navigate to client directory (in new terminal)
+cd client
 
 # Install Node.js dependencies
 npm install
@@ -76,7 +76,7 @@ echo "REACT_APP_API_URL=http://localhost:8000" > .env
 npm start
 ```
 
-The frontend will be available at `http://localhost:3000`
+The client will be available at `http://localhost:3000`
 
 #### 4. Test the Application
 
@@ -95,7 +95,7 @@ Enter this in the bulk input field:
 
 ```
 mastersudoku/
-├── backend/                    # Django REST API
+├── api/                       # Django REST API
 │   ├── backend/               # Django project configuration
 │   │   ├── settings.py        # Django settings
 │   │   ├── urls.py           # URL routing
@@ -110,7 +110,7 @@ mastersudoku/
 │   │   └── urls.py           # App URL patterns
 │   ├── requirements.txt       # Python dependencies
 │   └── manage.py             # Django management script
-├── frontend/                  # React application
+├── client/                    # React application
 │   ├── public/               # Static files
 │   ├── src/
 │   │   ├── components/
@@ -173,33 +173,3 @@ MasterSudoku implements solving strategies that mirror human problem-solving app
 }
 ```
 
-## Testing
-
-### Backend Tests
-```bash
-cd backend
-python manage.py test
-```
-
-### Frontend Tests  
-```bash
-cd frontend
-npm test
-```
-
-## Deployment
-
-For production deployment, you can:
-- Use any cloud provider (AWS, DigitalOcean, Heroku, etc.)
-- Configure a reverse proxy (nginx/Apache) to serve both frontend and backend
-- Set up environment variables for production settings
-- Use a production database (PostgreSQL, MySQL) instead of SQLite
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## Acknowledgments
-
-- Sudoku solving algorithms inspired by human solving techniques
-- Built with modern web development best practices
