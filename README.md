@@ -1,39 +1,205 @@
-# MasterSudoku - Sudoku Solver and Web Application
+# MasterSudoku
 
-MasterSudoku is a web application that solves Sudoku puzzles and allows users to interactively fill in or upload Sudoku grids. The project includes a Django Rest Framework backend, which handles the puzzle-solving algorithms, and a React frontend, which provides an interactive interface. It’s hosted at [www.mastersudoku.com](http://www.mastersudoku.com) on an Amazon EC2 server.
+A Sudoku solver web application that uses human-like solving algorithms to solve puzzles step-by-step. Built with Django REST Framework and React, MasterSudoku can handle puzzles of varying difficulty levels from easy to nearly impossible.
+
+## Features
+
+- **Interactive Grid Interface**: Click on cells or use keyboard input to enter numbers
+- **Bulk Input**: Enter entire puzzles via comma or space-separated values
+- **Human-Like Solving**: Uses advanced algorithms that mimic human solving strategies
+- **Multiple Difficulty Levels**: Handles puzzles from easy to expert level
+- **Real-time Solving**: Instant puzzle solving via REST API
+- **Responsive Design**: Works on desktop and mobile devices
+
+## Technology Stack
+
+### Backend
+- **Django 5.0.6** - Web framework
+- **Django REST Framework** - API development
+- **Python** - Core logic and algorithms
+- **SQLite** - Database (development)
+
+### Frontend  
+- **React 18** - User interface
+- **Axios** - HTTP client for API communication
+- **CSS3** - Styling and responsive design
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.8+ 
+- Node.js 14+
+- npm or yarn
+
+### Local Development Setup
+
+#### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd mastersudoku
+```
+
+#### 2. Backend Setup (Django)
+```bash
+# Navigate to backend directory
+cd backend
+
+# Create and activate virtual environment
+python -m venv sudoku-env
+source sudoku-env/bin/activate  # On Windows: sudoku-env\Scripts\activate
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Run database migrations
+python manage.py migrate
+
+# Start the Django development server
+python manage.py runserver
+```
+
+The backend API will be available at `http://localhost:8000`
+
+#### 3. Frontend Setup (React)
+```bash
+# Navigate to frontend directory (in new terminal)
+cd frontend
+
+# Install Node.js dependencies
+npm install
+
+# Set environment variable for API URL
+echo "REACT_APP_API_URL=http://localhost:8000" > .env
+
+# Start the React development server
+npm start
+```
+
+The frontend will be available at `http://localhost:3000`
+
+#### 4. Test the Application
+
+1. Open your browser to `http://localhost:3000`
+2. Enter a Sudoku puzzle by clicking cells or using the bulk input field
+3. Click "Solve" to see the solution
+4. Use "Clear" to reset the grid
+
+### Sample Puzzle for Testing
+Enter this in the bulk input field:
+```
+5,3,0,0,7,0,0,0,0,6,0,0,1,9,5,0,0,0,0,9,8,0,0,0,0,6,0,8,0,0,0,6,0,0,0,3,4,0,0,8,0,3,0,0,1,7,0,0,0,2,0,0,0,6,0,6,0,0,0,0,2,8,0,0,0,0,4,1,9,0,0,5,0,0,0,0,8,0,0,7,9
+```
 
 ## Project Structure
 
-The project is organized into two main parts: the **backend** for processing and solving puzzles and the **frontend** for the user interface. Here's an overview:
-
-### Backend (Django Rest Framework)
-The backend is built using Django Rest Framework (DRF) and includes:
-
-- **`puzzle.py`**: Defines the core objects for the Sudoku puzzle, such as:
-  - **`Cell`**: Represents an individual cell in the puzzle with its value and possible notes.
-  - **`Puzzle_Backend`**: Manages the puzzle's state and interacts with the solver.
-  - **`Puzzle`**: Connects the frontend and backend, enabling puzzle solving and display.
-- **`solver.py`**: Implements algorithms to solve puzzles, mimicking human solving strategies. More details on the algorithms are provided below.
-- **`examples/`**: Contains example puzzles of varying difficulty, from easy to nearly impossible.
-
-### Frontend (React)
-The frontend, built with React, allows users to:
-- Manually enter puzzle values.
-- Upload a complete puzzle via a grid interface.
-- Request solutions through the backend API.
-
-It uses Axios to handle HTTP requests between the frontend and backend, enabling real-time puzzle solving.
+```
+mastersudoku/
+├── backend/                    # Django REST API
+│   ├── backend/               # Django project configuration
+│   │   ├── settings.py        # Django settings
+│   │   ├── urls.py           # URL routing
+│   │   └── wsgi.py           # WSGI application
+│   ├── puzzles/              # Main application
+│   │   ├── utils/sudoku/     # Core Sudoku logic
+│   │   │   ├── puzzle.py     # Puzzle and Cell classes
+│   │   │   ├── solver.py     # Solving algorithms
+│   │   │   └── examples/     # Sample puzzles
+│   │   ├── views.py          # API endpoints
+│   │   ├── models.py         # Database models
+│   │   └── urls.py           # App URL patterns
+│   ├── requirements.txt       # Python dependencies
+│   └── manage.py             # Django management script
+├── frontend/                  # React application
+│   ├── public/               # Static files
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Sudoku.js     # Main puzzle component
+│   │   │   └── Sudoku.css    # Component styling
+│   │   ├── App.js            # Root component
+│   │   └── index.js          # Entry point
+│   └── package.json          # Node.js dependencies
+└── README.md
+```
 
 ## Solving Algorithms
 
-The solving algorithms in `solver.py` are designed to simulate human techniques, starting from simple clues and advancing to more complex strategies. This structure allows future implementations of a guided solving mode. The key algorithms include:
+MasterSudoku implements solving strategies that mirror human problem-solving approaches:
 
-### Core Solving Functions
-1. **`find_naked_clues`**: Identifies "naked" sets within rows, columns, or boxes, where a set of `n` cells contain only `n` unique notes. It eliminates these values from the notes of other cells in the same row, column, or box. Example:
-   - In row 3, if cells (3,3) and (3,7) both contain only `{4,8}`, those notes are removed from other cells in row 3. A cell with `{1,3,4,7,8}` would be reduced to `{1,3,7}`.
+### Core Techniques
 
-2. **`find_hidden_clues`**: Finds "hidden" sets, where exactly `n` cells contain more than `n` notes but share `n` values. It retains only the shared notes in those cells. Example:
-   - In row 3, if cells (3,3) and (3,7) have `{4,8}` among other values, `{4,8}` will be removed from all other cells in row 3, leaving only `{4,8}` in those two cells.
+1. **Naked Singles** (`find_naked_clues(n=1)`): Identifies cells with only one possible value
+2. **Hidden Singles** (`find_hidden_clues(n=1)`): Finds values that can only go in one cell within a row, column, or box
+3. **Naked Pairs/Triples** (`find_naked_clues(n=2,3)`): Eliminates possibilities when multiple cells share the same limited options
+4. **Hidden Pairs/Triples** (`find_hidden_clues(n=2,3)`): Identifies cells that exclusively contain certain values
+5. **Intersection Elimination** (`find_inline()`): Removes possibilities based on box-line interactions
 
-### Advanced Techniques
-If the primary algorithms reach a dead end, the **Nishio method** is used. This "guess and check" approach tests potential values for cells with limited options (typically naked or hidden doubles). If a contradiction is found, the algorithm backtracks and revises the guess. This method is recursive and used as a last resort due to its complexity and potential for numerous branches.
+### Advanced Strategy
+
+- **Nishio Method**: An advanced guess-and-check algorithm used as a last resort for extremely difficult puzzles. It systematically tests hypotheses and backtracks when contradictions are found.
+
+## API Reference
+
+### Solve Puzzle
+**POST** `/solve/`
+
+**Request Body:**
+```json
+{
+  "grid": [
+    [5,3,0,0,7,0,0,0,0],
+    [6,0,0,1,9,5,0,0,0],
+    // ... 9x9 array with 0 for empty cells
+  ]
+}
+```
+
+**Response:**
+```json
+{
+  "solved": 1,
+  "solved_grid": [
+    [5,3,4,6,7,8,9,1,2],
+    [6,7,2,1,9,5,3,4,8],
+    // ... complete 9x9 solution
+  ]
+}
+```
+
+**Error Response:**
+```json
+{
+  "error": "Puzzle can not be solved"
+}
+```
+
+## Testing
+
+### Backend Tests
+```bash
+cd backend
+python manage.py test
+```
+
+### Frontend Tests  
+```bash
+cd frontend
+npm test
+```
+
+## Deployment
+
+For production deployment, you can:
+- Use any cloud provider (AWS, DigitalOcean, Heroku, etc.)
+- Configure a reverse proxy (nginx/Apache) to serve both frontend and backend
+- Set up environment variables for production settings
+- Use a production database (PostgreSQL, MySQL) instead of SQLite
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## Acknowledgments
+
+- Sudoku solving algorithms inspired by human solving techniques
+- Built with modern web development best practices
