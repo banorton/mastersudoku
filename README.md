@@ -9,7 +9,6 @@ A Sudoku solver web application that uses human-like solving algorithms to solve
 - **Human-Like Solving**: Uses advanced algorithms that mimic human solving strategies
 - **Multiple Difficulty Levels**: Handles puzzles from easy to expert level
 - **Real-time Solving**: Instant puzzle solving via REST API
-- **Responsive Design**: Works on desktop and mobile devices
 
 ## Technology Stack
 
@@ -46,17 +45,17 @@ cd mastersudoku
 cd api
 
 # Create and activate virtual environment
-python -m venv sudoku-env
+python3 -m venv sudoku-env
 source sudoku-env/bin/activate
 
 # Install Python dependencies
 pip install -r requirements.txt
 
 # Run database migrations
-python manage.py migrate
+python3 manage.py migrate
 
 # Start the Django development server
-python manage.py runserver
+python3 manage.py runserver
 ```
 
 The API will be available at `http://localhost:8000`
